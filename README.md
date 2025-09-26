@@ -1,1 +1,0 @@
-# berkaybildaci.github.io
