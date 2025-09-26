@@ -4,7 +4,7 @@
 <title>Berkay Bildaci</title>
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <link rel="stylesheet" href="css/style.css">
-<script src=""></script>
+<script src="src/main.js"></script>
 <head>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -12,8 +12,49 @@
 <body>
 <div class="main_container">
     <div class="center_container">
-        <h1 class="text_test">Berkay Bildaci</h1>
-        <p class="text_test">Game Developer & Software Developer</p>
+        <div class="half-div">
+            <h1 class="text_test">Berkay Bildaci</h1>
+            <p class="text_test">Game Developer & Software Developer</p>
+            <ol class="nav-list">
+                <li>
+                <button class="tablinks, ghost-btn" onclick="openTab(event, 'Home')">Home</button>
+                </li>
+                <li>
+                <button class="tablinks, ghost-btn" onclick="openTab(event, 'Projects')">Projects</button>
+                </li>
+                <li>
+                <button class="tablinks, ghost-btn" onclick="openTab(event, 'Info')">Info</button>
+                </li>
+            </ol>
+        </div>
+        <div class="half-div">
+            <div id="Home" class="tabcontent">
+                <span class="text_test">
+                <p class="p-test">Hello! I'm Berkay, a game developer and software programmer from The U.S. I've been making games and coding since I was 9. I am currently studying Computer Science and Political Science & Ethics at 
+                    The University Of Houston.
+                </p>
+                <p class="p-test">Here you can see some of the projects I've had the opportunity to contribute to, as well as some of my personal-fun-side projects I've been working on.
+                </p>
+                </span>
+            </div>
+            <div id="Projects" class="tabcontent">
+                <div>
+                    <a href="https://silencepleasedev.itch.io/cloudy-with-a-chance-of-eggs" target="_blank" class="project-link">
+                        <h3 class="text_test">CLOUDY WITH A CHANCE OF EGGS</h3>
+                    </a> 
+                    <h5 class="text_test">SEPT 2025</h5>
+                </div>
+                <div>
+                    <a href="https://silencepleasedev.itch.io/orbital-hit" target="_blank" class="project-link">
+                    <h3 class="text_test">ORBITAL HIT</h3>
+                    </a> 
+                    <h5 class="text_test">Aug 2025</h5>
+                </div>
+            </div>
+            <div id="Info" class="tabcontent">
+                <p class="text_test">Contact me at ++++</p>
+            </div>
+        </div>
     </div>
 </div>
 

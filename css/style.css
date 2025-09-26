@@ -4,7 +4,7 @@
       display: flex;  /* center content */
       justify-content: center;
       align-items: center;
-      background: rgb(0, 0, 0);
+      background: black;
 }
 
 .center_container {
@@ -15,7 +15,6 @@
     border-color: white;
     border-style: solid;
     display: flex;
-    flex-direction: column; /* stack children vertically */
     align-items: flex-start; /* align to the left */
     justify-content: flex-start; /* align to the top */
     font-size: 2vw;
@@ -24,12 +23,15 @@
 
 .text_test {
     margin: 0;
-    color: white;
+    color: rgb(191, 191, 191);
     font-family: "Exo 2", sans-serif;
     font-optical-sizing: auto;
     font-weight: 300;
     font-style: normal;
+}
 
+.p-test {
+    margin: 0 0 1rem;
 }
 
 html, body {
@@ -37,4 +39,51 @@ html, body {
       padding: 0;
       height: 100%;
       overflow: hidden;
+}
+
+.nav-list {
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+}
+
+.half-div {
+    width: 50%;
+    padding: 2rem; /* Add some padding for visual separation */
+    /*border: 1px solid #ccc; /* Add a border for visual clarity */
+    display: flex;
+    flex-direction: column; /* stack children vertically */
+}
+
+.ghost-btn {
+align-self: flex-start;  /* don’t stretch */
+  flex: 0 0 auto; 
+  background: transparent;     /* no background */
+  border: none;                /* no border */
+  color: rgb(225, 225, 225);                /* default text color */
+font-size: 1vw;
+  cursor: pointer;             /* pointer on hover */
+  padding: 0;                  /* remove extra space */
+  transition: color 0.3s ease; 
+}
+
+.ghost-btn:hover {
+    color: grey;  
+    text-decoration: underline;
+}
+
+.project-link:link {
+  color: rgb(225, 225, 225);
+  background-color: transparent;
+  text-decoration: none;
+}
+.project-link:visited {
+  color: rgb(225, 225, 225);
+  background-color: transparent;
+  text-decoration: none;
+}
+.project-link:hover {
+  color: grey;
+  background-color: transparent;
+  text-decoration: underline;
 }
