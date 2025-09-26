@@ -1,0 +1,11 @@
+title: My Awesome GitHub Pages Site
+description: This is a description of my personal website.
+baseurl: "/berkaybildaci" # If your site is a Project Page
+url: "https://berkaybildaci.github.io" # Your domain or GitHub Pages URL
+theme: jekyll-theme-slate
+
+# Jekyll settings
+markdown: kramdown
+kramdown:
+  syntax_highlighter_opts:
+    disable: true # Disable if you're using a custom highlighter
