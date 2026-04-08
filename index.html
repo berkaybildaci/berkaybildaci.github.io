@@ -11,9 +11,10 @@
     :root {
       --bg:        #f9f7f4;
       --surface:   #ffffff;
-      --accent:    #1B3A6B;
-      --accent-lt: #e8eef6;
-      --accent-dk: #122849;
+      --accent:    #2E5EE8;
+      --accent-lt: #eaeffc;
+      --accent-dk: #2249b8;
+      --accent-warm: #E8A020;
       --text:      #1a1a1a;
       --muted:     #6b7280;
       --border:    #e4e0da;
@@ -61,17 +62,19 @@
       letter-spacing: -0.01em;
     }
     .nav-cta {
-      background: var(--accent);
-      color: #fff;
+      background: transparent;
+      color: var(--accent);
+      border: 2px solid var(--accent);
       text-decoration: none;
       padding: 9px 20px;
       border-radius: 999px;
       font-size: 0.85rem;
       font-weight: 600;
-      transition: background 0.2s, transform 0.15s;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s, transform 0.15s;
       white-space: nowrap;
     }
-    .nav-cta:hover { background: var(--accent-dk); transform: translateY(-1px); }
+    .nav-cta:hover { background: var(--accent); color: #fff; transform: translateY(-1px); }
 
     /* HERO */
     .hero {
@@ -95,7 +98,7 @@
     .hero-tag::before {
       content: '';
       width: 7px; height: 7px;
-      background: var(--accent);
+      background: var(--accent-warm);
       border-radius: 50%;
     }
     h1 {
@@ -143,7 +146,7 @@
       align-items: center;
       gap: 6px;
     }
-    .hero-note::before { content: '✓'; color: var(--accent); font-weight: 700; }
+    .hero-note svg { width: 16px; height: 16px; stroke: var(--accent-warm); fill: none; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
 
     hr.divider {
       border: none;
@@ -176,6 +179,17 @@
       max-width: 560px;
       margin-bottom: 36px;
       line-height: 1.7;
+    }
+    .section-intro.callout {
+      font-size: 1.1rem;
+      color: var(--text);
+      border-left: 3px solid var(--accent);
+      padding-left: 20px;
+      max-width: 600px;
+    }
+    .section-intro.callout strong {
+      color: var(--text);
+      font-weight: 700;
     }
 
     /* TEACHING DEMO */
@@ -272,7 +286,8 @@
       transition: box-shadow 0.2s, transform 0.2s;
     }
     .card:hover { box-shadow: 0 6px 24px rgba(0,0,0,0.07); transform: translateY(-2px); }
-    .card-icon { font-size: 1.5rem; margin-bottom: 14px; display: block; }
+    .card-icon { margin-bottom: 14px; display: block; color: var(--accent); }
+    .card-icon svg { width: 28px; height: 28px; stroke: currentColor; fill: none; stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; }
     .card h3 {
       font-family: 'DM Serif Display', serif;
       font-size: 1.08rem;
@@ -303,10 +318,10 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 0.85rem;
       flex-shrink: 0;
       margin-top: 1px;
     }
+    .fit-icon svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
 
     /* ABOUT */
     .about-card {
@@ -347,17 +362,20 @@
 
     /* CALENDLY SECTION */
     #contact { padding-bottom: 88px; }
-    .calendly-wrap {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      overflow: hidden;
-      min-height: 650px;
+    .calendly-btn {
+      display: inline-block;
+      background: var(--accent);
+      color: #fff;
+      text-decoration: none;
+      padding: 16px 36px;
+      border-radius: 999px;
+      font-size: 1.05rem;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
     }
-    .calendly-inline-widget {
-      width: 100%;
-      min-height: 650px;
-    }
+    .calendly-btn:hover { background: var(--accent-dk); transform: translateY(-2px); }
     .contact-note {
       margin-top: 16px;
       font-size: 0.84rem;
@@ -395,8 +413,6 @@
       section { padding: 52px 0; }
       .about-card { padding: 24px; }
       .demo-box { padding: 24px; }
-      .calendly-wrap { min-height: 700px; }
-      .calendly-inline-widget { min-height: 700px; }
     }
     @media (max-width: 540px) {
       .about-card {
@@ -417,8 +433,6 @@
       .cards { grid-template-columns: 1fr; }
       .array-cell { width: 46px; height: 46px; font-size: 0.9rem; }
       section { padding: 44px 0; }
-      .calendly-wrap { min-height: 750px; }
-      .calendly-inline-widget { min-height: 750px; }
     }
     @media (max-width: 360px) {
       h1 { font-size: 1.85rem; }
@@ -432,7 +446,7 @@
   <nav>
     <div class="container">
       <a class="nav-name" href="#">Berkay Bildaci</a>
-      <a class="nav-cta" href="#contact">Book Free Consultation</a>
+      <a class="nav-cta" href="javascript:void(0)" onclick="Calendly.initPopupWidget({url: 'https://calendly.com/berkaybildaci/free-cs-tutoring-consultation-berkay?hide_gdpr_banner=1&primary_color=2E5EE8'}); return false;">Book Free Consultation</a>
     </div>
   </nav>
 
@@ -446,8 +460,8 @@
         No workshops. No crowds. Just clear, visual explanations built around how <em>you</em> learn.
       </p>
       <div class="hero-actions">
-        <a class="btn-primary" href="#contact">Book a Free Consultation</a>
-        <span class="hero-note">No commitment &mdash; just a quick chat</span>
+        <a class="btn-primary" href="javascript:void(0)" onclick="Calendly.initPopupWidget({url: 'https://calendly.com/berkaybildaci/free-cs-tutoring-consultation-berkay?hide_gdpr_banner=1&primary_color=2E5EE8'}); return false;">Book a Free Consultation</a>
+        <span class="hero-note"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>No commitment, just a quick chat</span>
       </div>
     </div>
   </div>
@@ -459,12 +473,12 @@
     <div class="container">
       <div class="section-label">Teaching Style</div>
       <h2>Concepts you can see,<br>not just hear.</h2>
-      <p class="section-intro">
-        Most CS confusion isn't about intelligence &mdash; it's about abstraction.
-        I make the invisible visible by drawing out exactly what the computer is doing, step by step.
+      <p class="section-intro callout">
+        Most CS confusion isn't about intelligence, it's about <strong>abstraction</strong>.
+        I make the invisible <strong>visible</strong> by drawing out exactly what the computer is doing, step by step.
       </p>
       <div class="demo-box">
-        <div class="demo-label">Example &mdash; How I explain an array</div>
+        <div class="demo-label">Example: How I explain an array</div>
         <div class="array-wrap">
           <div class="array-row">
             <div class="array-cell">12<span class="idx">[0]</span></div>
@@ -475,12 +489,12 @@
           </div>
         </div>
         <ul class="steps">
-          <li><span class="step-n">1</span>An array is a row of labeled boxes &mdash; each box holds one value</li>
+          <li><span class="step-n">1</span>An array is a row of labeled boxes, and each box holds one value</li>
           <li><span class="step-n">2</span>Every box has an index (its address), starting at 0, not 1</li>
           <li><span class="step-n">3</span><code>arr[2]</code> means &ldquo;open the box at address 2&rdquo; &rarr; gives you <strong>8</strong></li>
           <li><span class="step-n">4</span>A loop just moves from box to box, left to right, one at a time</li>
         </ul>
-        <p class="demo-caption">Every concept gets this treatment &mdash; drawn out, broken down, until it sticks.</p>
+        <p class="demo-caption">Every concept gets this treatment: drawn out, broken down, until it sticks.</p>
       </div>
     </div>
   </section>
@@ -492,25 +506,25 @@
     <div class="container">
       <div class="section-label">What You Get</div>
       <h2>Tutoring built around you.</h2>
-      <p class="section-intro">Sessions are shaped around your exact confusion &mdash; not a generic curriculum.</p>
+      <p class="section-intro">Sessions are shaped around your exact confusion, not a generic curriculum.</p>
       <div class="cards">
         <div class="card">
-          <span class="card-icon">🎯</span>
+          <span class="card-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></span>
           <h3>Fully Personalized</h3>
           <p>Every session starts with your specific questions, your code, your assignments. Not a recycled lesson plan.</p>
         </div>
         <div class="card">
-          <span class="card-icon">✏️</span>
+          <span class="card-icon"><svg viewBox="0 0 24 24"><path d="M17 3a2.83 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/><path d="m15 5 4 4"/></svg></span>
           <h3>Visual by Default</h3>
-          <p>I draw out memory, loops, and data structures &mdash; whatever it takes to make the concept concrete.</p>
+          <p>I draw out memory, loops, and data structures. Whatever it takes to make the concept concrete.</p>
         </div>
         <div class="card">
-          <span class="card-icon">🚨</span>
+          <span class="card-icon"><svg viewBox="0 0 24 24"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg></span>
           <h3>Emergency Sessions</h3>
           <p>Exam tomorrow? Reach out. I keep availability open for last-minute sessions before tests and deadlines.</p>
         </div>
         <div class="card">
-          <span class="card-icon">👤</span>
+          <span class="card-icon"><svg viewBox="0 0 24 24"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span>
           <h3>One-on-One Only</h3>
           <p>Your time isn't split with 30 other students. You get complete, undivided attention the whole session.</p>
         </div>
@@ -526,11 +540,11 @@
       <div class="section-label">Who This Is For</div>
       <h2>Sound familiar?</h2>
       <ul class="fit-list" style="margin-top:28px">
-        <li><span class="fit-icon">📚</span><span>You're in an intro CS course and the lectures move too fast</span></li>
-        <li><span class="fit-icon">😵</span><span>You understand the concept in class but freeze when you open your IDE</span></li>
-        <li><span class="fit-icon">⏰</span><span>Your exam is coming up and group workshops just aren't cutting it</span></li>
-        <li><span class="fit-icon">🔁</span><span>You've Googled the same concept five times and it still doesn't click</span></li>
-        <li><span class="fit-icon">💬</span><span>You just want to ask questions without feeling judged</span></li>
+        <li><span class="fit-icon"><svg viewBox="0 0 24 24"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg></span><span>You're in an intro CS course and the lectures move too fast, and now you're falling behind</span></li>
+        <li><span class="fit-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M16 16s-1.5-2-4-2-4 2-4 2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg></span><span>You kind of understand in class, but get stuck the second you code alone</span></li>
+        <li><span class="fit-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></span><span>Your exam is coming up and you're not ready</span></li>
+        <li><span class="fit-icon"><svg viewBox="0 0 24 24"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg></span><span>You've Googled the same concept five times and it still doesn't click</span></li>
+        <li><span class="fit-icon"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></span><span>You want to ask questions without feeling judged</span></li>
       </ul>
     </div>
   </section>
@@ -552,10 +566,8 @@
           <h3>Berkay Bildaci</h3>
           <div class="about-title">Honors CS Sophomore &middot; University of Houston</div>
           <p>
-            I'm a Computer Science student in the UH Honors College. I tutor the way I wish I'd been taught &mdash;
-            by making abstract concepts tangible. Instead of just reading code aloud, I draw it out: arrays become boxes,
-            loops become step-by-step walkthroughs, and methods get broken into plain-language lists.
-            I was a beginner not long ago, and I remember exactly where the confusion lives.
+            I'm a Computer Science student in the UH Honors College. I tutor the way I wish I'd been taught:
+            by making abstract concepts tangible. I was a beginner not long ago, and I remember exactly where the confusion lives.
           </p>
         </div>
       </div>
@@ -568,18 +580,12 @@
   <section id="contact">
     <div class="container">
       <div class="section-label">Book a Session</div>
-      <h2>Free consultation &mdash; pick a time.</h2>
+      <h2>Free consultation. Pick a time.</h2>
       <p class="section-intro">
-        Choose a slot that works for you. We'll chat for 20&ndash;30 minutes,
+        Choose a slot that works for you. We'll chat for 15&ndash;20 minutes,
         figure out where you're stuck, and decide if we're a good fit.
       </p>
-      <div class="calendly-wrap">
-        <!-- ✏️  REPLACE the URL below with your own Calendly event link -->
-        <div
-          class="calendly-inline-widget"
-          data-url="https://calendly.com/YOUR_USERNAME/free-consultation?hide_gdpr_banner=1&primary_color=2e7d5e"
-        ></div>
-      </div>
+      <button class="calendly-btn" onclick="Calendly.initPopupWidget({url: 'https://calendly.com/berkaybildaci/free-cs-tutoring-consultation-berkay?hide_gdpr_banner=1&primary_color=2E5EE8'}); return false;">Schedule a Free Chat</button>
       <p class="contact-note">
         Prefer email? Reach me at <a href="mailto:bdbildac@cougarnet.uh.edu">bdbildac@cougarnet.uh.edu</a>
       </p>
@@ -593,7 +599,8 @@
     </div>
   </footer>
 
-  <!-- Calendly embed script -->
+  <!-- Calendly popup widget -->
+  <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet" />
   <script src="https://assets.calendly.com/assets/external/widget.js" async></script>
 
 </body>
