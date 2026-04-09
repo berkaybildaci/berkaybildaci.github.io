@@ -112,6 +112,7 @@
     h1 em {
       font-style: italic;
       color: var(--accent);
+      animation: colorPulse 1.2s ease 0.5s;
     }
     .hero-sub {
       font-size: clamp(0.97rem, 2.5vw, 1.12rem);
@@ -121,6 +122,31 @@
       font-weight: 400;
       line-height: 1.7;
     }
+    .hero-bullets {
+      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+    .hero-bullets li {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.88rem;
+      color: var(--muted);
+      font-weight: 500;
+    }
+    .hero-bullets svg {
+      width: 15px;
+      height: 15px;
+      stroke-width: 2.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      fill: none;
+    }
+    .hero-bullets li:last-child svg { stroke: var(--accent); }
+    .hero-bullets li:not(:last-child) svg { stroke: var(--muted); }
     .hero-actions {
       display: flex;
       flex-wrap: wrap;
@@ -207,6 +233,18 @@
       color: var(--muted);
       margin-bottom: 20px;
     }
+    .demo-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    .demo-step-counter {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--accent);
+      letter-spacing: 0.03em;
+    }
     .array-row {
       display: flex;
       flex-wrap: wrap;
@@ -226,43 +264,63 @@
       background: var(--accent-lt);
       color: var(--text);
       position: relative;
+      transition: background 0.3s, border-color 0.3s;
     }
     .array-cell + .array-cell { border-left: none; }
     .array-cell .idx {
       position: absolute;
       bottom: -22px;
       font-size: 0.65rem;
-      color: var(--muted);
+      color: var(--text);
       font-weight: 400;
       font-family: monospace;
     }
-    .array-wrap { margin-bottom: 36px; }
-    .steps {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
+    .array-cell .val {
+      opacity: 0;
+      transition: opacity 0.4s ease;
     }
-    .steps li {
-      display: flex;
-      align-items: flex-start;
-      gap: 11px;
-      font-size: 0.9rem;
-      line-height: 1.55;
-    }
-    .step-n {
+    .array-cell .val.visible { opacity: 1; }
+    .array-cell.highlight {
       background: var(--accent);
       color: #fff;
-      width: 21px; height: 21px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.68rem;
-      font-weight: 700;
-      flex-shrink: 0;
-      margin-top: 1px;
+      border-color: var(--accent-dk);
     }
+    .array-cell.scan {
+      background: var(--accent);
+      color: #fff;
+      border-color: var(--accent-dk);
+    }
+    .array-wrap { margin-bottom: 36px; }
+    .demo-lookup {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--accent);
+      margin-top: 0;
+      margin-bottom: 20px;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+      font-family: monospace;
+    }
+    .demo-lookup.visible { opacity: 1; }
+    .demo-text {
+      font-size: 0.92rem;
+      line-height: 1.6;
+      color: var(--text);
+      min-height: 48px;
+      margin-bottom: 20px;
+    }
+    .demo-btn {
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      padding: 10px 22px;
+      border-radius: 999px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .demo-btn:hover { background: var(--accent-dk); transform: translateY(-1px); }
     .demo-caption {
       margin-top: 22px;
       padding-top: 16px;
@@ -398,6 +456,11 @@
       from { opacity: 0; transform: translateY(16px); }
       to   { opacity: 1; transform: translateY(0); }
     }
+    @keyframes colorPulse {
+      0%   { color: var(--accent); }
+      30%  { color: var(--accent-warm); }
+      100% { color: var(--accent); }
+    }
     section:nth-of-type(1) { animation-delay: 0.05s; }
     section:nth-of-type(2) { animation-delay: 0.10s; }
     section:nth-of-type(3) { animation-delay: 0.15s; }
@@ -446,25 +509,49 @@
   <nav>
     <div class="container">
       <a class="nav-name" href="#">Berkay Bildaci</a>
-      <a class="nav-cta" href="javascript:void(0)" onclick="Calendly.initPopupWidget({url: 'https://calendly.com/berkaybildaci/free-cs-tutoring-consultation-berkay?hide_gdpr_banner=1&primary_color=2E5EE8'}); return false;">Book Free Consultation</a>
+      <a class="nav-cta" href="javascript:void(0)" onclick="Calendly.initPopupWidget({url: 'https://calendly.com/berkaybildaci/free-cs-tutoring-consultation-berkay?hide_gdpr_banner=1&primary_color=2E5EE8'}); return false;">Book a Free Consultation</a>
     </div>
   </nav>
 
   <!-- HERO -->
   <div class="hero">
     <div class="container">
-      <div class="hero-tag">CS Tutoring &middot; University of Houston</div>
+      <div class="hero-tag">CS Clarity Tutoring &middot; University of Houston</div>
       <h1>CS finally <em>clicks</em><br>when someone draws it out.</h1>
       <p class="hero-sub">
-        One-on-one tutoring for UH students struggling with intro programming.
-        No workshops. No crowds. Just clear, visual explanations built around how <em>you</em> learn.
+        One-on-one tutoring for UH students struggling with intro programming. Just clear, visual explanations that don't move on until it <em>clicks</em>.
       </p>
+      <ul class="hero-bullets">
+        <li><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>No crowds</li>
+        <li><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>No last-minute panic</li>
+        <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Fully personalized</li>
+      </ul>
       <div class="hero-actions">
         <a class="btn-primary" href="javascript:void(0)" onclick="Calendly.initPopupWidget({url: 'https://calendly.com/berkaybildaci/free-cs-tutoring-consultation-berkay?hide_gdpr_banner=1&primary_color=2E5EE8'}); return false;">Book a Free Consultation</a>
         <span class="hero-note"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>No commitment, just a quick chat</span>
+        <span style="color: var(--muted); margin: 0 4px;">&middot;</span>
+        <span class="hero-note"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Limited spots each semester</span>
       </div>
     </div>
   </div>
+
+
+  <hr class="divider" />
+
+  <!-- WHO THIS IS FOR -->
+  <section>
+    <div class="container">
+      <div class="section-label">Who This Is For</div>
+      <h2>Sound familiar?</h2>
+      <ul class="fit-list" style="margin-top:28px">
+        <li><span class="fit-icon"><svg viewBox="0 0 24 24"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg></span><span>You're in an intro CS course and the lectures move too fast, and now you're falling behind</span></li>
+        <li><span class="fit-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M16 16s-1.5-2-4-2-4 2-4 2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg></span><span>You kind of understand in class, but get stuck the second you code alone</span></li>
+        <li><span class="fit-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></span><span>Your exam is coming up and you're not ready</span></li>
+        <li><span class="fit-icon"><svg viewBox="0 0 24 24"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg></span><span>You've Googled the same concept five times and it still doesn't click</span></li>
+        <li><span class="fit-icon"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></span><span>You want to ask questions without feeling judged</span></li>
+      </ul>
+    </div>
+  </section>
 
   <hr class="divider" />
 
@@ -472,28 +559,28 @@
   <section>
     <div class="container">
       <div class="section-label">Teaching Style</div>
-      <h2>Concepts you can see,<br>not just hear.</h2>
+      <h2>You're not bad at CS,<br> It's just never been shown to you.</h2>
       <p class="section-intro callout">
         Most CS confusion isn't about intelligence, it's about <strong>abstraction</strong>.
         I make the invisible <strong>visible</strong> by drawing out exactly what the computer is doing, step by step.
       </p>
-      <div class="demo-box">
-        <div class="demo-label">Example: How I explain an array</div>
+      <div class="demo-box" id="demo">
+        <div class="demo-header">
+          <div class="demo-label" style="margin-bottom:0;">Example: How I explain an array</div>
+          <div class="demo-step-counter" id="demo-counter">Step 1 of 4</div>
+        </div>
         <div class="array-wrap">
-          <div class="array-row">
-            <div class="array-cell">12<span class="idx">[0]</span></div>
-            <div class="array-cell">5<span class="idx">[1]</span></div>
-            <div class="array-cell">8<span class="idx">[2]</span></div>
-            <div class="array-cell">3<span class="idx">[3]</span></div>
-            <div class="array-cell">19<span class="idx">[4]</span></div>
+          <div class="array-row" id="demo-array">
+            <div class="array-cell"><span class="val">12</span><span class="idx">[0]</span></div>
+            <div class="array-cell"><span class="val">5</span><span class="idx">[1]</span></div>
+            <div class="array-cell"><span class="val">8</span><span class="idx">[2]</span></div>
+            <div class="array-cell"><span class="val">3</span><span class="idx">[3]</span></div>
+            <div class="array-cell"><span class="val">19</span><span class="idx">[4]</span></div>
           </div>
         </div>
-        <ul class="steps">
-          <li><span class="step-n">1</span>An array is a row of labeled boxes, and each box holds one value</li>
-          <li><span class="step-n">2</span>Every box has an index (its address), starting at 0, not 1</li>
-          <li><span class="step-n">3</span><code>arr[2]</code> means &ldquo;open the box at address 2&rdquo; &rarr; gives you <strong>8</strong></li>
-          <li><span class="step-n">4</span>A loop just moves from box to box, left to right, one at a time</li>
-        </ul>
+        <div class="demo-lookup" id="demo-lookup">arr[2] &rarr; 8</div>
+        <p class="demo-text" id="demo-text"></p>
+        <button class="demo-btn" id="demo-btn" onclick="demoNext()">Next &rarr;</button>
         <p class="demo-caption">Every concept gets this treatment: drawn out, broken down, until it sticks.</p>
       </div>
     </div>
@@ -529,23 +616,7 @@
           <p>Your time isn't split with 30 other students. You get complete, undivided attention the whole session.</p>
         </div>
       </div>
-    </div>
-  </section>
-
-  <hr class="divider" />
-
-  <!-- WHO THIS IS FOR -->
-  <section>
-    <div class="container">
-      <div class="section-label">Who This Is For</div>
-      <h2>Sound familiar?</h2>
-      <ul class="fit-list" style="margin-top:28px">
-        <li><span class="fit-icon"><svg viewBox="0 0 24 24"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg></span><span>You're in an intro CS course and the lectures move too fast, and now you're falling behind</span></li>
-        <li><span class="fit-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M16 16s-1.5-2-4-2-4 2-4 2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg></span><span>You kind of understand in class, but get stuck the second you code alone</span></li>
-        <li><span class="fit-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></span><span>Your exam is coming up and you're not ready</span></li>
-        <li><span class="fit-icon"><svg viewBox="0 0 24 24"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg></span><span>You've Googled the same concept five times and it still doesn't click</span></li>
-        <li><span class="fit-icon"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></span><span>You want to ask questions without feeling judged</span></li>
-      </ul>
+      <p class="callout" style="margin-top: 28px; font-size: 1.05rem; font-weight: 600; font-style: italic; color: var(--text); border-left: 3px solid var(--accent); padding-left: 20px;">You leave sessions with a mental model of the concept, not just notes.</p>
     </div>
   </section>
 
@@ -564,13 +635,41 @@
         />
         <div class="about-text">
           <h3>Berkay Bildaci</h3>
-          <div class="about-title">Honors CS Sophomore &middot; University of Houston</div>
+          <div class="about-title">Honors CS Sophomore &middot; University of Houston &middot; APCSA (4) &middot; Dean's List</div>
           <p>
             I'm a Computer Science student in the UH Honors College. I tutor the way I wish I'd been taught:
-            by making abstract concepts tangible. I was a beginner not long ago, and I remember exactly where the confusion lives.
+            by helping students build a mental model of how code actually works, so they can solve problems independently and confidently.
           </p>
         </div>
       </div>
+      <p class="section-intro callout" style="margin-top: 28px;">I watched my cousin fail her intro CS class because the professor just read off slides and expected everyone to <strong>just get it</strong>. CS isn't a secret club; it's just a visual logic game that most people are trying to play blindfolded. I'm here to take the blindfold off.</p>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- PRICING -->
+  <section>
+    <div class="container">
+      <div class="section-label">Pricing</div>
+      <h2>Simple and straightforward.</h2>
+      <div style="background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 32px; display: inline-block; margin-top: 8px;">
+        <span style="font-family: 'DM Serif Display', serif; font-size: clamp(2rem, 5vw, 2.8rem); color: var(--text); letter-spacing: -0.02em;">$50</span>
+        <span style="font-size: 1.1rem; color: var(--muted); margin-left: 4px;">/hr</span>
+        <p style="font-size: 0.95rem; color: var(--accent); font-weight: 600; margin-top: 12px;">Free consultation to start</p>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- SATISFACTION GUARANTEE -->
+  <section>
+    <div class="container">
+      <div class="section-label">Satisfaction Guarantee</div>
+      <h2>If your first session doesn't click, you don't pay.</h2>
+      <p class="section-intro" style="margin-bottom: 8px;">I'm confident enough in how I teach to put that in writing.</p>
+      <p class="section-intro" style="margin-bottom: 0;">If you don't leave the first session with a noticeably clearer understanding of your topic, you owe <strong><em>nothing</em></strong>.</p>
     </div>
   </section>
 
@@ -585,7 +684,7 @@
         Choose a slot that works for you. We'll chat for 15&ndash;20 minutes,
         figure out where you're stuck, and decide if we're a good fit.
       </p>
-      <button class="calendly-btn" onclick="Calendly.initPopupWidget({url: 'https://calendly.com/berkaybildaci/free-cs-tutoring-consultation-berkay?hide_gdpr_banner=1&primary_color=2E5EE8'}); return false;">Schedule a Free Chat</button>
+      <button class="calendly-btn" onclick="Calendly.initPopupWidget({url: 'https://calendly.com/berkaybildaci/free-cs-tutoring-consultation-berkay?hide_gdpr_banner=1&primary_color=2E5EE8'}); return false;">Book a Free Consultation</button>
       <p class="contact-note">
         Prefer email? Reach me at <a href="mailto:bdbildac@cougarnet.uh.edu">bdbildac@cougarnet.uh.edu</a>
       </p>
@@ -595,9 +694,80 @@
   <!-- FOOTER -->
   <footer>
     <div class="container">
-      <p>&copy; 2025 Berkay Bildaci &middot; CS Tutoring at the University of Houston</p>
+      <p>&copy; 2026 Berkay Bildaci &middot; CS Clarity Tutoring for UH students</p>
     </div>
   </footer>
+
+  <!-- Interactive demo -->
+  <script>
+  (function() {
+    var step = 0;
+    var cells = document.querySelectorAll('#demo-array .array-cell');
+    var vals = document.querySelectorAll('#demo-array .val');
+    var text = document.getElementById('demo-text');
+    var counter = document.getElementById('demo-counter');
+    var btn = document.getElementById('demo-btn');
+    var lookup = document.getElementById('demo-lookup');
+    var scanTimer = null;
+
+    var steps = [
+      'An array is a row of labeled boxes. Each box has an address, starting at 0.',
+      'Each box holds one value. The index is its address, not its position in human terms.',
+      'arr[2] means "open the box at address 2." That gives you 8.',
+      'A loop just moves from box to box, left to right, one at a time.'
+    ];
+
+    function reset() {
+      clearTimeout(scanTimer);
+      vals.forEach(function(v) { v.classList.remove('visible'); });
+      cells.forEach(function(c) { c.classList.remove('highlight', 'scan'); });
+      lookup.classList.remove('visible');
+    }
+
+    function apply(s) {
+      reset();
+      counter.textContent = 'Step ' + (s + 1) + ' of 4';
+      text.textContent = steps[s];
+
+      if (s >= 1) {
+        vals.forEach(function(v) { v.classList.add('visible'); });
+      }
+      if (s === 2) {
+        cells[2].classList.add('highlight');
+        lookup.classList.add('visible');
+      }
+      if (s === 3) {
+        var i = 0;
+        function scan() {
+          cells.forEach(function(c) { c.classList.remove('scan'); });
+          if (i < cells.length) {
+            cells[i].classList.add('scan');
+            i++;
+            scanTimer = setTimeout(scan, 500);
+          }
+        }
+        scan();
+      }
+
+      if (s === 3) {
+        btn.innerHTML = '<svg viewBox="0 0 24 24" style="width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;vertical-align:-2px;margin-right:5px;"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>Start over';
+      } else {
+        btn.innerHTML = 'Next &rarr;';
+      }
+    }
+
+    window.demoNext = function() {
+      if (step >= 3) {
+        step = 0;
+      } else {
+        step++;
+      }
+      apply(step);
+    };
+
+    apply(0);
+  })();
+  </script>
 
   <!-- Calendly popup widget -->
   <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet" />
